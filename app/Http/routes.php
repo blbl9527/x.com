@@ -1,3 +1,5 @@
+
+
 <?php
 
 /*
@@ -55,3 +57,8 @@ Route::get('other/modifyworkitem','WorkController@getModify');
 
 Route::resource('time','TimeController');
 Route::get('other/modifytimeitem','TimeController@getModify');
+
+Route::resource('post','PostController');
+Route::resource('link','LinkController');
+
+Route::get('other/modifyposts','PostController@getPostsModify');

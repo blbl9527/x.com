@@ -88,7 +88,7 @@
                   家政新闻<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('producer.create')}}">新建新闻</a></li>
+                    <li><a href="{{route('post.create')}}" target="blank">新建新闻</a></li>
                     <li><a href="{{route('consumer.create')}}">删除新闻</a></li>
                 </ul>
             </li>
@@ -141,18 +141,15 @@
             
             <hr>
             <h2 id="section-3">网站新闻管理</h2>
-				<table class="table table-hover">			   
+				<table class="table table-hover table-bordered">			   
 				   <tbody>
 				      	<tr>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/">添加文章</a></td>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/pending/">修改文章</a></td> 
+					         <td><a href="{{route('post.create')}}" target="blank">添加文章</a></td>
+					         <td><a href="{{url('other/modifyposts')}}" target="blank">修改文章</a></td> 
 				      	</tr>
 				      	<tr>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/approved/">最热类型</a></td>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/spam/">删除文章</a></td>
-					    </tr>
-					    <tr>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/approved/">文章列表</a></td>
+				      		<td><a href="{{url('other/modifyposts')}}" target="blank">最热文章</a></td>
+				      		<td><a href="{{url('other/modifyposts')}}" target="blank">删除文章</a></td>
 					    </tr>
 				   </tbody>
 				</table>        
