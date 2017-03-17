@@ -67,8 +67,8 @@
                   新建<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('consumer.create')}}">工作类型</a></li>
-                    <li><a href="{{route('consumer.create')}}">时间类型</a></li>
+                    <li><a href="{{url('work/create')}}" target="blank">工作类型</a></li>
+                    <li><a href="{{url('time/create')}}" target="blank">时间类型</a></li>
                     <li><a href="{{route('consumer.create')}}">友情链接</a></li>
                 </ul>
             </li>
@@ -119,31 +119,23 @@
 
         <div class="col-xs-9">
             <h2 id="section-1">工作类型管理</h2>
-				<table class="table table-hover">			   
+				<table class="table table-hover table-bordered">			   
 				   <tbody>
 				      	<tr>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/">添加类型</a></td>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/pending/">修改类型</a></td> 
+					         <td><a href="{{url('work/create')}}" target="blank">添加类型</a></td>
+					         <td><a href="{{url('other/modifyworkitem')}}" target="blank">修改类型</a></td> 
 				      	</tr>
-				      	<tr>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/approved/">最热类型</a></td>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/spam/">所有类型</a></td>
-					    </tr>
 				   </tbody>
 				</table>
             
             <hr>
             <h2 id="section-2">工作时间管理</h2>
-				<table class="table table-hover">			   
+				<table class="table table-hover table-bordered">			   
 				   <tbody>
 				      	<tr>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/">添加类型</a></td>
-					         <td><a href="http://blbl9527.duoshuo.com/admin/pending/">修改类型</a></td> 
+					         <td><a href="{{url('time/create')}}" target="blank">添加类型</a></td>
+					         <td><a href="{{url('other/modifytimeitem')}}" target="blank">修改类型</a></td> 
 				      	</tr>
-				      	<tr>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/approved/">最热类型</a></td>
-				      		<td><a href="http://blbl9527.duoshuo.com/admin/spam/">所有类型</a></td>
-					    </tr>
 				   </tbody>
 				</table>
             

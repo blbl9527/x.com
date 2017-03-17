@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class WorkController extends Controller
+class TimeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class WorkController extends Controller
      */
     public function create()
     {
-        return view('admin.addworkitem');
+        return view('admin.addtimeitem');
     }
 
     /**
@@ -85,11 +85,7 @@ class WorkController extends Controller
         //
     }
 
-    public function getWorkType($type='hello'){
-        return view('work.worktype',['type'=>$type]);
-    }
-
     public function getModify(){
-        return view('admin.modifyworkitem');
+        return view('admin.modifytimeitem');
     }
 }

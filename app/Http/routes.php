@@ -48,3 +48,10 @@ Route::get('other/showc/{id}','ConsumerController@getShow');
 Route::get('other/caddcomment/{id}','ConsumerController@getCommentForm');
 Route::get('other/paddcomment/{id}','ProducerController@getCommentForm');
 
+
+Route::resource('work','WorkController');
+Route::get('other/modifyworkitem','WorkController@getModify');
+
+
+Route::resource('time','TimeController');
+Route::get('other/modifytimeitem','TimeController@getModify');
