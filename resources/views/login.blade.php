@@ -61,7 +61,7 @@
             <div class="alert alert-info">本站建立并不容易，欢迎各种形式<a href="">打赏<a/>，金额不限！</div>
         </div>
         <div class="col-xs-8">
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" action="{{url('login/check')}}" method="POST">
                 @if(isset($msg))
                 <div class="alert alert-danger">{{$msg}}</div>
                 @endif
@@ -69,25 +69,26 @@
                   <label for="username" class="col-sm-2 control-label">用户名</label>
                   <div class="col-sm-9">
                      <input type="text" class="form-control" id="username" required
-                        placeholder="请输入用户名">
+                      name="username"  placeholder="请输入用户名">
                   </div>
                </div>
                <div class="form-group">
                   <label for="password" class="col-sm-2 control-label">密码</label>
                   <div class="col-sm-9">
                      <input type="password" class="form-control" id="password" required
-                        placeholder="请输入密码">
+                      name="password"  placeholder="请输入密码">
                   </div>
                </div>
                <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-9">
                      <div class="checkbox">
                         <label>
-                           <input type="checkbox"> 请记住我
+                           <input type="checkbox" name="rememberme"> 请记住我
                         </label>
                      </div>
                   </div>
                </div>
+               
                <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-9">
                      <button type="submit" class="btn btn-default">登录</button>

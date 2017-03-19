@@ -31,7 +31,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{env('site').'/other/modifyapw'}}">修改密码</a></li>
-                    <li><a href="#">安全退出</a></li>
+                    <li><a href="{{url('login/logout')}}">安全退出</a></li>
                 </ul>
             </li>
 
@@ -58,7 +58,7 @@
 
     <div class="row"> <!-- 中 -->
         <div class="col-xs-8">
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" action="{{route('work.store')}}" method="POST">
                 @if(isset($msg))
                   <div class="alert alert-danger">{{$msg}}</div>
                 @else
@@ -68,7 +68,7 @@
                   <label for="workitem" class="col-sm-2 control-label">新类型</label>
                   <div class="col-sm-9">
                      <input type="text" class="form-control" id="workitem" required
-                        placeholder="请输入新工作类型">
+                       name="name" placeholder="请输入新工作类型">
                   </div>
                </div>
                <div class="form-group">

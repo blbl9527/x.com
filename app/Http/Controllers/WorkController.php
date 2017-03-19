@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
+use App\Models\Work;
 
 class WorkController extends Controller
 {
@@ -37,7 +39,19 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = Input::all();
+        $t = Work::where('name',$inputs['name'])->first();
+        if(is_null($t)){
+            $t = new Work;
+            $t->name=$inputs['name'];
+            if($t->save()){
+                return view('admin.addworkitem',['msg'=>'插入新工作成功']);
+            }else{
+                return view('admin.addworkitem',['msg'=>'插入新工作失败']);
+            }
+        }else{
+            return view('admin.addworkitem',['msg'=>'数据库中已存在相关记录!']);
+        }
     }
 
     /**

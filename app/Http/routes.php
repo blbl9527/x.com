@@ -47,7 +47,7 @@ Route::get('other/worktype/{type?}','WorkController@getWorkType');
 Route::get('other/showp/{id}','ProducerController@getShow');
 Route::get('other/showc/{id}','ConsumerController@getShow');
 
-Route::get('other/caddcomment/{id}','ConsumerController@getCommentForm');
+
 Route::get('other/paddcomment/{id}','ProducerController@getCommentForm');
 
 
@@ -62,3 +62,19 @@ Route::resource('post','PostController');
 Route::resource('link','LinkController');
 
 Route::get('other/modifyposts','PostController@getPostsModify');
+
+Route::resource('area','AreaController');
+Route::get('other/modifyareaitem','AreaController@getModify');
+
+Route::resource('service','ServiceController');
+
+Route::get('service/{sid}/{cid}','ServiceController@getDetail');
+Route::get('other/towork/{sid}','ServiceController@toWork');
+
+//consumer cancel a deal
+Route::get('other/cancel/{sid}','ServiceController@cCancel');
+//consumer terminate a deal
+Route::get('other/terminate/{sid}','ServiceController@cTerminate');
+//consumer comment 
+Route::get('other/caddcomment/{id}','ConsumerController@getCommentForm');
+

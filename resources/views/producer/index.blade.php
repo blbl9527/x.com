@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>X-家政中介 | *主页</title>
+    <title>X-家政中介 | {{$username}}主页</title>
     <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
       <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -71,7 +71,7 @@
 	                    <li class="disabled"><a href="{{route('consumer.create')}}">注册家政消费者</a></li>
 	                    <li class="divider"></li>
 	                    <li class="disabled"><a href="{{env('site').'/login/start'}}">登录系统</a></li>
-	                    <li><a href="#">退出登录</a></li>
+	                    <li><a href="{{url('login/logout')}}">退出登录</a></li>
 	                </ul>
 	            </li>
 
@@ -125,22 +125,16 @@
 				      </tr>
 				   </thead>
 				   <tbody>
+				   @foreach($services_s2 as $item)
 				      <tr>
-				         <td>罗浩楠</td>
-				         <td>带小孩</td>
-				         <td>工作日</td>
-				         <td>200</td>
-				         <td>信阳</td>
-				         <td>去工作</td>
+				         <td><a href="{{$item['aboutconsumerurl']}}" target="blank">{{$item['cname']}}</a></td>
+				         <td>{{$item['work']}}</td>
+				         <td>{{$item['time']}}</td>
+				         <td>{{$item['salary']}}</td>
+				         <td>{{$item['area']}}</td>
+				         <td><a href="{{$item['toworkurl']}}" target="blank">去工作</a></td>
 				      </tr>
-				      <tr>
-				         <td>罗浩楠</td>
-				         <td>带小孩</td>
-				         <td>工作日</td>
-				         <td>200</td>
-				         <td>信阳</td>
-				         <td>去工作</td>
-				      </tr>
+				    @endforeach 
 				   </tbody>
 				</table>
             
@@ -191,22 +185,16 @@
 								      </tr>
 								   </thead>
 								   <tbody>
+								   @foreach($services_s1 as $item)
 								      <tr>
-								         <td>1</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
+								         <td>{{$item['id']}}</td>
+								         <td>{{$item['work']}}</td>
+								         <td>{{$item['time']}}</td>
+								         <td>{{$item['salary']}}</td>
+								         <td>{{$item['area']}}</td>
 								         <td>删除</td>
 								      </tr>
-								      <tr>
-								         <td>2</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								         <td>删除</td>
-								      </tr>
+								   @endforeach
 								   </tbody>
 								</table>         
             <hr>

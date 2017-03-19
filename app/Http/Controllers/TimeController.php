@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Time;
+use Input;
 
 class TimeController extends Controller
 {
@@ -37,7 +39,19 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = Input::all();
+        $t = Time::where('name',$inputs['name'])->first();
+        if(is_null($t)){
+            $t = new Time;
+            $t->name=$inputs['name']; 
+            if($t->save()){
+                return view('admin.addtimeitem',['msg'=>'插入新时间类型成功']);
+            }else{
+                return view('admin.addtimeitem',['msg'=>'插入新时间类型失败']);
+            }
+        }else{
+            return view('admin.addtimeitem',['msg'=>'数据库中已存在相关记录!']);
+        }
     }
 
     /**

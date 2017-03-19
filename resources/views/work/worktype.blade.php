@@ -23,7 +23,7 @@
                     <li><a href="{{route('consumer.create')}}">注册家政消费者</a></li>
                     <li class="divider"></li>
                     <li><a href="{{env('site').'/login/start'}}">登录系统</a></li>
-                    <li class="disabled"><a href="#">退出登录</a></li>
+                    <li class="disabled"><a href="{{url('login/logout')}}">退出登录</a></li>
                 </ul>
             </li>
 

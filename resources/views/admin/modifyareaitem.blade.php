@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>x-家政 | 修改工作类型</title>
+<title>x-家政 | 更改已有的地点</title>
   <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
   <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
                   新建<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('consumer.create')}}">工作类型</a></li>
+                    <li><a href="{{url('work/create')}}">工作类型</a></li>
                     <li><a href="{{route('consumer.create')}}">时间类型</a></li>
                     <li><a href="{{route('consumer.create')}}">友情链接</a></li>
                 </ul>
@@ -62,7 +62,7 @@
         @if(isset($msg))
             <div class="alert alert-danger">{{$msg}}</div>
         @else
-            <div class="alert alert-danger">管理员您好，下面是本站所有的工作类型</div>
+            <div class="alert alert-danger">管理员您好，下面是本站所有的工作地点类型</div>
         @endif
 
 
@@ -76,15 +76,15 @@
              <tbody>
                 <tr>
                    <td>1</td>
-                   <td>带孩子</td>
+                   <td>工作日</td>
                 </tr>
                 <tr>
                    <td>2</td>
-                   <td>保洁</td>
+                   <td>休息日</td>
                 </tr>
                 <tr>
                    <td>3</td>
-                   <td>搬家</td>
+                   <td>周一</td>
                 </tr>
              </tbody>
           </table>
@@ -108,7 +108,7 @@
         <label for="workitem" class="col-sm-2 control-label">更改描述</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="workitem" required
-                    placeholder="请重新定义工作类型描述">
+                    placeholder="请重新定义时间类型描述">
             </div>
     </div>
 

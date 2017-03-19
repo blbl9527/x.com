@@ -23,7 +23,7 @@
                     <li><a href="{{route('consumer.create')}}">注册家政消费者</a></li>
                     <li class="divider"></li>
                     <li><a href="{{env('site').'/login/start'}}">登录系统</a></li>
-                    <li class="disabled"><a href="#">退出登录</a></li>
+                    <li class="disabled"><a href="{{url('login/logout')}}">退出登录</a></li>
                 </ul>
             </li>
 
@@ -63,13 +63,17 @@
             <div class="alert alert-info">本站建立并不容易，欢迎各种形式<a href="">打赏<a/>，金额不限！</div>
         </div>
         <div class="col-xs-8">
-            <div class="alert alert-success">您正在注册为本系统的用户！角色为家政服务提供者！</div>
-            <form class="form-horizontal" role="form">
+            @if(isset($msg))
+                <div class="alert alert-success">{{$msg}}</div>
+            @else
+                <div class="alert alert-success">您正在注册为本系统的用户！角色为家政服务提供者！</div>
+            @endif
+            <form class="form-horizontal" role="form" action="{{route('producer.store')}}" method="POST">
                <div class="form-group">
                   <label for="name" class="col-sm-3 control-label">姓名</label>
                   <div class="col-sm-6">
-                     <input type="text" class="form-control" id="name"
-                        placeholder="请输入您的姓名">
+                     <input type="text" class="form-control" id="name" required
+                       name="name" placeholder="请输入您的姓名">
                   </div>
                </div>
 
@@ -77,47 +81,47 @@
                     <label for="gender" class="col-sm-3 control-label">姓别</label>
                     <label class="checkbox-inline">
                       <input type="radio" name="gender" id="optionsRadios3"
-                         value="male"> 男士
+                         value="1"> 男士
                     </label>
                     <label class="checkbox-inline">
                       <input type="radio" name="gender" id="optionsRadios4"
-                         value="female" checked> 女士
+                         value="0" checked> 女士
                     </label>
                 </div>
 
                <div class="form-group">
                   <label for="username" class="col-sm-3 control-label">用户名</label>
                   <div class="col-sm-6">
-                     <input type="text" class="form-control" id="username"
-                        placeholder="请输入用户名">
+                     <input type="text" class="form-control" id="username" required
+                       name="username" placeholder="请输入用户名">
                   </div>
                </div>
                <div class="form-group">
                   <label for="password" class="col-sm-3 control-label">输入密码</label>
                   <div class="col-sm-6">
-                     <input type="password" class="form-control" id="password"
-                        placeholder="请输入密码">
+                     <input type="password" class="form-control" id="password" required
+                       name="password"  placeholder="请输入密码">
                   </div>
                </div>
                <div class="form-group">
                   <label for="password" class="col-sm-3 control-label">确认密码</label>
                   <div class="col-sm-6">
-                     <input type="password" class="form-control" id="c_password"
-                        placeholder="请确认密码">
+                     <input type="password" class="form-control" id="c_password" required
+                       name="passwordconform" placeholder="请确认密码">
                   </div>
                </div>
                <div class="form-group">
                   <label for="email" class="col-sm-3 control-label">email</label>
                   <div class="col-sm-6">
                      <input type="email" class="form-control" id="email"
-                        placeholder="请输入邮件地址">
+                       name="email" placeholder="请输入邮件地址">
                   </div>
                </div>
                <div class="form-group">
                   <label for="phone" class="col-sm-3 control-label">电话</label>
                   <div class="col-sm-6">
                      <input type="text" class="form-control" id="phone"
-                        placeholder="请输入您的电话">
+                       name="phone" placeholder="请输入您的电话">
                   </div>
                </div>
               <div class="form-group">
@@ -131,12 +135,12 @@
               <div class="form-group">
                     <label for="privateprotected" class="col-sm-3 control-label">隐私保护</label>
                     <label class="checkbox-inline">
-                      <input type="radio" name="privatep" id="optionsRadios3"
-                         value="open"> 公开联系方式
+                      <input type="radio" name="privateprotected" id="optionsRadios3"
+                         value="0"> 公开联系方式
                     </label>
                     <label class="checkbox-inline">
-                      <input type="radio" name="privatep" id="optionsRadios4"
-                         value="close" checked> 不公开联系方式
+                      <input type="radio" name="privateprotected" id="optionsRadios4"
+                         value="1" checked> 不公开联系方式
                     </label>
                 </div>
 

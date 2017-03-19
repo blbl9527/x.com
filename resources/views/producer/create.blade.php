@@ -21,7 +21,7 @@
                       <li class="disabled"><a href="{{route('consumer.create')}}">注册家政消费者</a></li>
                       <li class="divider"></li>
                       <li class="disabled"><a href="{{env('site').'/login/start'}}">登录系统</a></li>
-                      <li><a href="#">退出登录</a></li>
+                      <li><a href="{{url('login/logout')}}">退出登录</a></li>
                   </ul>
               </li>
 
@@ -64,76 +64,76 @@
         </div>
 
         <div class="col-xs-8">
-            <form class="form-horizontal" role="form">
+            @if(isset($msg))
+                <div class="alert alert-success">{{$msg}}</div>
+            @endif
+            <form class="form-horizontal" role="form" action="{{route('service.store')}}" method="POST">
+
                <div class="form-group">
                   <label for="workclassid" class="col-sm-3 control-label">工作类型</label>
                   <div class="col-sm-6">
-                    <select name="workclassid" class="form-control">
-						<option value="">带孩子</option>
-						<option value="">打扫卫生</option>
-						<option value="">做饭</option>
-						<option value="">搬家</option>
-						<option value="">写作业</option>
-					</select>
+                    <select name="workid" class="form-control">
+                      @foreach($works as $item)
+                          <option value="{{$item->id}}">{{$item->name}}</option>
+                      @endforeach
+					         </select>
                   </div>
                </div>
-
+               <input type="text" name="pid" value="{{$pid}}" hidden>
                <div class="form-group">
                   <label for="timeclassid" class="col-sm-3 control-label">时间类型</label>
-                  <div class="col-sm-6">
-                     <select name="timeclassid" class="form-control">
-						<option value="">工作日</option>
-						<option value="">休息日</option>
-						<option value="">星期一</option>
-						<option value="">星期二</option>
-						<option value="">星期三</option>
-					</select>
-                  </div>
+                    <div class="col-sm-6">
+                       <select name="timeid" class="form-control">
+    						          @foreach($times as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                          @endforeach
+  					           </select>
+                    </div>
                </div>
 
                <div class="form-group">
                   <label for="areaid" class="col-sm-3 control-label">工作区域</label>
-                  <div class="col-sm-6">
+                    <div class="col-sm-6">
                      <select name="areaid" class="form-control">
-						<option>平顶山</option>
-						<option>信阳</option>
-						<option>河南</option>
-						<option>河北</option>
-						<option>石家庄</option>
-					</select>
-                  </div>
+						            @foreach($areas as $item)
+                          <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+					           </select>
+                    </div>
                </div>
 
                
-               <div class="form-group">
+                <div class="form-group">
                   <label for="salary" class="col-sm-3 control-label">薪资要求</label>
-                  <div class="col-sm-6">
-                     <input type="text" class="form-control" id="salary"
-                        placeholder="请输入您的日薪要求">
-                  </div>
-               </div>
+                    <div class="col-sm-6">
+                     <input type="text" class="form-control" id="salary" required
+                       name="salary"  placeholder="请输入您的日薪要求">
+                    </div>
+                </div>
 
                <div class="form-group">
                   <label for="email" class="col-sm-3 control-label">email</label>
                   <div class="col-sm-6">
-                     <input type="email" class="form-control" id="email"
-                        placeholder="请输入邮件地址">
+                     <input type="email" class="form-control" id="email" 
+                      name="email"  placeholder="请输入邮件地址">
                   </div>
                </div>
+
                <div class="form-group">
                   <label for="phone" class="col-sm-3 control-label">电话</label>
                   <div class="col-sm-6">
-                     <input type="text" class="form-control" id="phone"
-                        placeholder="请输入您的电话">
+                     <input type="text" class="form-control" id="phone" required
+                       name="phone" placeholder="请输入您的电话">
                   </div>
                </div>
+
                <div class="form-group">
                   <label for="other" class="col-sm-3 control-label">其他描述</label>
                   <div class="col-sm-6">
                      <textarea name="other" class="form-control" rows="3">其他描述</textarea>
-                  </div>
-                  
+                  </div>  
               </div>
+
                 <div class="form-group">
                     <label for="conference" class="col-sm-3 control-label">我已阅读协议并同意</label>
                     <label class="checkbox-inline">
@@ -145,12 +145,16 @@
                          value="no"> 否
                     </label>
                 </div>
+
                <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-6">
                      <button type="submit" class="btn btn-default">发布求职信息</button>
                   </div>
                </div>
-            </form> 
+
+            </form>
+
+
         </div>
     </div>
     <div class="row"> <!-- 尾 -->

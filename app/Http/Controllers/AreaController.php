@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use Input;
+use App\Models\Area;
 
-class AdminController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,18 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //echo session('username').'3<br/>'; //debug
-        //echo session('password').'4<br/>'; //debug
-        //echo session('usertype').'5<br/>'; //debug
-        $t =Admin::where('username',session('username'))->first();
-        if(is_null($t) || session('usertype') !=='admin'){
-            return redirect()->action('LoginController@getStart');
-        }
-
-        $data=[
-            'username' => $t->username,
-        ];
-        return view('admin.index',$data);
+        //
     }
 
     /**
@@ -38,7 +28,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.addareaitem');
     }
 
     /**
@@ -49,7 +39,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = Input::all();
+        $t = Area::where('name',$inputs['name'])->first();
+        if(is_null($t)){
+            $t = new Area;
+            $t->name=$inputs['name'];
+            if($t->save()){
+                return view('admin.addareaitem',['msg'=>'插入新地点成功']);
+            }else{
+                return view('admin.addareaitem',['msg'=>'插入新地点失败']);
+            }
+        }else{
+            return view('admin.addareaitem',['msg'=>'数据库中已存在相关记录!']);
+        }
     }
 
     /**
@@ -96,9 +98,7 @@ class AdminController extends Controller
     {
         //
     }
-
-    public function getModifyPW(){
-        return view('admin.modifypw');
+    public function getModify(){
+        return view('admin.modifyareaitem');
     }
-
 }

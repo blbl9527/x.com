@@ -23,7 +23,7 @@
                     <li><a href="{{route('consumer.create')}}">注册家政消费者</a></li>
                     <li class="divider"></li>
                     <li><a href="{{env('site').'/login/start'}}">登录系统</a></li>
-                    <li class="disabled"><a href="#">退出登录</a></li>
+                    <li class="disabled"><a href="{{url('login/logout')}}">退出登录</a></li>
                 </ul>
             </li>
 
@@ -32,15 +32,15 @@
                     关键词<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">带孩子</a></li>
-                    <li><a href="#">做饭</a></li>
-                    <li><a href="#">钟点</a></li>
-                    <li><a href="#">搬家</a></li>
-                    <li><a href="#">游戏代练</a></li> 
+                    <li><a href="{{url('other/worktype/')}}" target="blank">带孩子</a></li>
+                    <li><a href="{{url('other/worktype/')}}" target="blank">带孩子</a></li>
+                    <li><a href="{{url('other/worktype/')}}" target="blank">带孩子</a></li>
+                    <li><a href="{{url('other/worktype/')}}" target="blank">带孩子</a></li>
+                    <li><a href="{{url('other/worktype/')}}" target="blank">带孩子</a></li> 
                 </ul>
             </li>
 
-            <li><a href="#">家政新闻</a></li>
+            <li><a href="{{route('post.index')}}">家政新闻</a></li>
 
             <li><a href="{{env('site').'/other/sitecomment'}}">网站留言</a></li>
    

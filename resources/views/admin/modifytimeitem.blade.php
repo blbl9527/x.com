@@ -31,7 +31,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{env('site').'/other/modifyapw'}}">修改密码</a></li>
-                    <li><a href="#">安全退出</a></li>
+                    <li><a href="{{url('login/logout')}}">安全退出</a></li>
                 </ul>
             </li>
 

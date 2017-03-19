@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>x-家政系统 | 文章修改</title>
+<title>x-家政 | 添加工作地点</title>
   <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
   <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -40,8 +40,8 @@
                   家政新闻<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('post.create')}}">新建新闻</a></li>
-                    <li><a href="{{url('other/modifyposts')}}">新闻管理</a></li>
+                    <li><a href="{{route('producer.create')}}">新建新闻</a></li>
+                    <li><a href="{{route('consumer.create')}}">删除新闻</a></li>
                 </ul>
             </li>
 
@@ -55,49 +55,28 @@
     <div class="jumbotron">
         <p>x 家政中介管理系统</p>
     </div>
-
-    @if(isset($msg))
-      <div class="alert alert-danger">{{$msg}}</div>
-    @else
-      <div class="alert alert-danger">管理员您好，下面是本站新闻列表，安热度排序</div>
-    @endif
-
+ 
     <div class="row"> <!-- 中 -->
         <div class="col-xs-8">
-            <table class="table table-bordered table-hover">
-               <thead>
-                  <tr>
-                     <th>文章ID</th>
-                     <th>文章标题</th>
-                     <th>文章编辑</th>
-                     <th>修改文章</th>
-                     <th>删除文章</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td>Tanmay</td>
-                     <td>Bangalore</td>
-                     <td>560001</td>
-                     <td>560001</td>
-                     <td>删除文章</td>
-                  </tr>
-                  <tr>
-                     <td>Tanmay</td>
-                     <td>Bangalore</td>
-                     <td>560001</td>
-                     <td>560001</td>
-                     <td>删除文章</td>
-                  </tr>
-                  <tr>
-                     <td>Tanmay</td>
-                     <td>Bangalore</td>
-                     <td>560001</td>
-                     <td>560001</td>
-                     <td>删除文章</td>
-                  </tr>
-               </tbody>
-            </table>
+            <form class="form-horizontal" role="form" method="POST" action="{{route('area.store')}}">
+                @if(isset($msg))
+                  <div class="alert alert-danger">{{$msg}}</div>
+                @else
+                  <div class="alert alert-danger">管理员您好，您正在添加可选的工作地点</div>
+                @endif
+               <div class="form-group">
+                  <label for="workitem" class="col-sm-2 control-label">新类型</label>
+                  <div class="col-sm-9">
+                     <input type="text" class="form-control" id="workitem" required
+                       name="name" placeholder="请输入新工作地点">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-9">
+                     <button type="submit" class="btn btn-default">确定添加</button>
+                  </div>
+               </div>
+            </form> 
         </div>
     </div>
 </div>

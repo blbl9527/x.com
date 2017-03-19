@@ -79,7 +79,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{env('site').'/other/modifyapw'}}">修改密码</a></li>
-                    <li><a href="#">安全退出</a></li>
+                    <li><a href="{{url('login/logout')}}">安全退出</a></li>
                 </ul>
             </li>
 
@@ -110,7 +110,7 @@
         <div class="col-xs-3" id="myScrollspy">
             <ul class="nav nav-tabs nav-stacked" id="myNav">
                 <li class="active"><a href="#section-1">工作类型管理</a></li>
-                <li><a href="#section-2">工作时间管理</a></li>
+                <li><a href="#section-2">时间地点管理</a></li>
                 <li><a href="#section-3">网站新闻管理</a></li>
                 <li><a href="#section-4">网站留言管理</a></li>
                 <li><a href="#section-5">其他配置项目</a></li>
@@ -129,13 +129,17 @@
 				</table>
             
             <hr>
-            <h2 id="section-2">工作时间管理</h2>
+            <h2 id="section-2">时间地点管理</h2>
 				<table class="table table-hover table-bordered">			   
 				   <tbody>
 				      	<tr>
-					         <td><a href="{{url('time/create')}}" target="blank">添加类型</a></td>
-					         <td><a href="{{url('other/modifytimeitem')}}" target="blank">修改类型</a></td> 
+					         <td><a href="{{url('time/create')}}" target="blank">添加时间类型</a></td>
+					         <td><a href="{{url('other/modifytimeitem')}}" target="blank">修改时间类型</a></td> 
 				      	</tr>
+                <tr>
+                   <td><a href="{{url('area/create')}}" target="blank">添加地点类型</a></td>
+                   <td><a href="{{url('other/modifyareaitem')}}" target="blank">修改地点类型</a></td> 
+                </tr>
 				   </tbody>
 				</table>
             
