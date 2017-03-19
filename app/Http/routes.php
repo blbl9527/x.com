@@ -44,11 +44,11 @@ Route::resource('work','WorkController');
 Route::get('other/worktype/{type?}','WorkController@getWorkType');
 
 
-Route::get('other/showp/{id}','ProducerController@getShow');
+Route::get('other/showp/{id}','ProducerController@getShow'); 
 Route::get('other/showc/{id}','ConsumerController@getShow');
 
 
-Route::get('other/paddcomment/{id}','ProducerController@getCommentForm');
+
 
 
 Route::resource('work','WorkController');
@@ -72,9 +72,17 @@ Route::get('service/{sid}/{cid}','ServiceController@getDetail');
 Route::get('other/towork/{sid}','ServiceController@toWork');
 
 //consumer cancel a deal
-Route::get('other/cancel/{sid}','ServiceController@cCancel');
+Route::get('other/cancel/{sid}','ServiceController@cCancel'); 
 //consumer terminate a deal
 Route::get('other/terminate/{sid}','ServiceController@cTerminate');
 //consumer comment 
-Route::get('other/caddcomment/{id}','ConsumerController@getCommentForm');
+Route::get('other/caddcomment/{id}','ConsumerController@getCommentForm'); 
 
+Route::resource('comment','CommentController'); 
+
+//producer terminate a deal 
+Route::get('other/pterminate/{sid}','ServiceController@pTerminate');
+//producer delete a serviceinfo
+Route::get('other/pdelete/{sid}','ServiceController@pDelete');
+//producer comment
+Route::get('other/paddcomment/{id}','ProducerController@getCommentForm');

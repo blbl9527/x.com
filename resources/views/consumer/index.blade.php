@@ -211,7 +211,7 @@
 				         <td><a href="{{$item['abtpurl']}}" target="blank">{{$item['pname']}}</a></td>
 				         <td>{{$item['work']}}</td>
 				         <td>{{$item['time']}}</td>
-				         <td>{{$item['work']}}</td>
+				         <td>{{$item['salary']}}</td>
 				         <td>{{$item['area']}}</td>
 				         <td><a href="{{$item['ccommenturl']}}">评价</a></td>
 				      </tr>
@@ -237,7 +237,7 @@
 				         <td><a href="{{$item['abtpurl']}}" target="blank">{{$item['pname']}}</a></td>
 				         <td>{{$item['work']}}</td>
 				         <td>{{$item['time']}}</td>
-				         <td>{{$item['work']}}</td>
+				         <td>{{$item['salary']}}</td>
 				         <td>{{$item['area']}}</td>
 				      </tr>
 				    

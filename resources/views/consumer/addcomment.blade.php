@@ -74,30 +74,33 @@
 			        <th>工作类型</th>
 			        <th>时间安排</th>
 			        <th>日薪</th>
-			        <th>地区</th>
+			        <th>地区</th> 
 			      </tr>
 			   </thead>
 			   <tbody>
 			      <tr>
-			      	<th>1</th>
-			        <td>李坤</td>
-			        <td>带小孩</td>
-			        <td>工作日</td>
-			        <td>200</td>
-			        <td>信阳</td>
+			      	<th>{{$data['id']}}</th>
+			        <td><a href="{{$data['abtpurl']}}" target="blank">{{$data['name']}}</a></td>
+			        <td>{{$data['work']}}</td>
+			        <td>{{$data['time']}}</td>
+			        <td>{{$data['salary']}}</td>
+			        <td>{{$data['area']}}</td>
 			      </tr>
 			   </tbody>
 			</table>
-			<div class="alert alert-info">请在下面的表单填写您的评论，但是还望您客观公正的评价，维护良好的秩序！</div>
-			<form class="form-horizontal" role="form">
+			<div class="alert alert-info">请在下面的表单填写您的评论，但是还望您客观公正的评价，维护良好的秩序！评论成功后调回前一个页面！</div>
+			<form class="form-horizontal" role="form" action="{{route('comment.store')}}" method="POST">
 
                <div class="form-group">
                   <label for="aboutme" class="col-sm-3 control-label">评论：</label>
                   <div class="col-sm-9">
-                     <textarea name="aboutme" class="form-control" rows="6">好评！~</textarea>
+                     <textarea name="description" class="form-control" rows="6">好评！~</textarea>
                   </div>
               </div>
-
+              <input type="text" name="commentby" value="consumer" hidden/>
+              <input type="text" name="commentbyid" value="{{session('userid')}}" hidden/>
+              <input type="text" name="commentforid" value="{{$data['pid']}}" hidden />
+              <input type="text" name="serviceid" value="{{$data['id']}}" hidden /> 
                <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-3">
                      <button type="submit" class="btn btn-default">发表评论</button>

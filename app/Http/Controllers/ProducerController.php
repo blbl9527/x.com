@@ -13,7 +13,7 @@ use App\Models\Time;
 use App\Models\Area;
 use App\Models\Service;
 use App\Models\Consumer;
-
+use App\Models\Comment;
 
 class ProducerController extends Controller
 {
@@ -48,28 +48,7 @@ class ProducerController extends Controller
         $services_s3 = Service::where('pid',$t->id)->where(function($query){
             $query->where('status','3');
         })->get();
-        //dd($services_s3); //debug 
-        $station = [];
-        foreach($services_s3 as $item){
-            $station[]=[
-                'id' => $item->id,
-                'work' => Work::where('id',$item->workid)->first()->name,
-                'time' => Time::where('id',$item->timeid)->first()->name,
-                'area' => Area::where('id',$item->areaid)->first()->name,
-                'salary' => $item->salary,
-                'email' => $item->email,
-                'phone' => $item->phone,
-                'about' => $item->about,
-                'status' => $this->n_2_string($item->status),
-                'cid' => $item->cid,
-                'cname' => Consumer::where('id',$item->cid)->first()->name,
-                'pid' => $item->pid,
-                'pcomment'=>$item->pcomment,
-                'ccomment'=>$item->ccomment,
-            ];
-        }
-        $services_s3=$station;
-        //dd($services_s3); //debug
+        $services_s3 = $this->services_s3_id_2_name($services_s3);
 
 
         $services_s4_c0 = Service::where('pid',$t->id)->where(function($query){
@@ -77,56 +56,15 @@ class ProducerController extends Controller
                 $query->where('pcomment',0);
             });
         })->get();
-        //dd($services_s4_c0); //debug
-        $station = [];
-        foreach($services_s4_c0 as $item){
-            $station[]=[
-                'id' => $item->id,
-                'work' => Work::where('id',$item->workid)->first()->name,
-                'time' => Time::where('id',$item->timeid)->first()->name,
-                'area' => Area::where('id',$item->areaid)->first()->name,
-                'salary' => $item->salary,
-                'email' => $item->email,
-                'phone' => $item->phone,
-                'about' => $item->about,
-                'status' => $this->n_2_string($item->status),
-                'cid' => $item->cid,
-                'cname' => Consumer::where('id',$item->cid)->first()->name,
-                'pid' => $item->pid,
-                'pcomment'=>$item->pcomment,
-                'ccomment'=>$item->ccomment,
-            ];
-        }
-        $services_s4_c0=$station;
-        //dd($services_s4_c0); //debug
+        $services_s4_c0 = $this->services_s4_c0_id_2_name($services_s4_c0);
+        
 
         $services_s4_c1 = Service::where('pid',$t->id)->where(function($query){
-            $query->where('status','1')->where(function($query){
+            $query->where('status','4')->where(function($query){
                 $query->where('pcomment',1);
             });
         })->get();
-        //dd( $services_s4_c1); //debug
-        $station = [];
-        foreach($services_s4_c1 as $item){
-            $station[]=[
-                'id' => $item->id,
-                'work' => Work::where('id',$item->workid)->first()->name,
-                'time' => Time::where('id',$item->timeid)->first()->name,
-                'area' => Area::where('id',$item->areaid)->first()->name,
-                'salary' => $item->salary,
-                'email' => $item->email,
-                'phone' => $item->phone,
-                'about' => $item->about,
-                'status' => $this->n_2_string($item->status),
-                'cid' => $item->cid,
-                'cname' => Consumer::where('id',$item->cid)->first()->name,
-                'pid' => $item->pid,
-                'pcomment'=>$item->pcomment,
-                'ccomment'=>$item->ccomment,
-            ];
-        }
-        $services_s4_c1=$station;
-        //dd($services_s4_c1); //debug
+        $services_s4_c1 = $this->services_s4_c1_id_2_name($services_s4_c1);
 
         //dd($services_s1); //debug
         $data=[
@@ -191,7 +129,7 @@ class ProducerController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -259,8 +197,36 @@ class ProducerController extends Controller
 
     //this method provide information for consumer about the producer.
     public function getShow($id){
-        echo $id;
-        return view('producer.show');
+
+        $tp = Producer::where('id',$id)->first();
+        if(is_null($tp)){ 
+            //如果通过非法途径访问不存在的信息则回到初始页面
+            return redirect()->action('LoginController@getStart');
+        }
+
+        if($tp->privateprotected === 1){
+            $email = '************|设置了隐私保护';
+            $phone = '************|设置了隐私保护';
+        }else{
+            $email = $tp->email; 
+            $phone = $tp->phone;
+        }
+
+        $comments = Comment::where('commentby','consumer')->where(function($query)use($id){
+            $query->where('commentforid',$id);
+        })->get();
+
+        $data=[
+            'name' => $tp->name,
+            'gender' => $this->gender_no_2_str($tp->gender),  
+            'username' => $tp->username,
+            'email' => $email,
+            'phone' => $phone,
+            'protected'=>$tp->privateprotected,
+            'about' => $tp->about,
+            'comments'=>$comments,  
+        ];
+        return view('producer.show',['data'=>$data]);
     }
 
     //this method create a form to post a comment, of course it's for a producer
@@ -313,6 +279,7 @@ class ProducerController extends Controller
                 'pid' => $item->pid,
                 'pcomment'=>$item->pcomment,
                 'ccomment'=>$item->ccomment,
+                'deleteurl'=>url('other/pdelete/'.$item->id), 
             ];
         }
         return $station;
@@ -334,6 +301,66 @@ class ProducerController extends Controller
             ];
         }
         return $station;
+    }
+
+    private function services_s3_id_2_name($arr=[]){
+        $station = [];
+        foreach($arr as $item){
+            $consumer = Consumer::where('id',$item->cid)->first();
+            $station[]=[
+                'cname' => $consumer->name ,
+                'abtcurl' => url('other/showc/'.$consumer->id),
+                'work' => Work::where('id',$item->workid)->first()->name,
+                'time' => Time::where('id',$item->timeid)->first()->name,
+                'salary' => $item->salary,
+                'area' => Area::where('id',$item->areaid)->first()->name,
+                'pterminateurl' => url('other/pterminate/'.$item->id) ,
+            ];
+        }
+        return $station;
+    }
+
+    private function services_s4_c0_id_2_name($arr = []){
+        $station = [];
+        foreach($arr as $item){
+            $consumer = Consumer::where('id',$item->cid)->first();
+            $station[]=[
+                'cname' => $consumer->name ,
+                'abtcurl' => url('other/showc/'.$consumer->id),
+                'work' => Work::where('id',$item->workid)->first()->name,
+                'time' => Time::where('id',$item->timeid)->first()->name,
+                'salary' => $item->salary,
+                'area' => Area::where('id',$item->areaid)->first()->name,
+                'pcommenturl' => url('other/paddcomment/'.$item->id) , 
+            ];
+        }
+        return $station;
+    }
+
+    private function services_s4_c1_id_2_name($arr = []){
+        $station = [];
+        foreach($arr as $item){
+            $consumer = Consumer::where('id',$item->cid)->first();
+            $station[]=[
+                'cname' => $consumer->name ,
+                'abtcurl' => url('other/showc/'.$consumer->id),
+                'work' => Work::where('id',$item->workid)->first()->name,
+                'time' => Time::where('id',$item->timeid)->first()->name,
+                'salary' => $item->salary,
+                'area' => Area::where('id',$item->areaid)->first()->name,
+            ];
+        }
+        return $station;
+    }
+
+    private function gender_no_2_str($no){
+        if($no === 0){
+            return "女士";
+        }else if($no === 1){
+            return "男士";
+        }else{
+            return "未知";
+        }
     }
 
 }

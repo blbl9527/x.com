@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>X-家政中介 | **的资料</title>
+    <title>X-家政中介 | {{$data['name']}}的资料</title>
     <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
       <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -111,13 +111,12 @@
         </div>
 
         <div class="col-xs-9">
-           <div class="alert alert-success ">您正在查看 服务消费者**的信息</div>
+           <div class="alert alert-success ">您正在查看 服务消费者{{$data['name']}}的信息</div>
 			<form class="form-horizontal" role="form">
                <div class="form-group">
                   <label for="name" class="col-sm-3 control-label">姓名</label>
                   <div class="col-sm-6">
-                     <input type="text" class="form-control" id="name" readonly
-                        placeholder="请输入您的姓名">
+                     <input type="text" class="form-control" id="name" readonly value="{{$data['name']}}">
                   </div>
                </div>
 
@@ -125,7 +124,7 @@
                     <label for="gender" class="col-sm-3 control-label">姓别</label>
                     <div class="col-sm-6">
                     <input type="text" class="form-control" id="name" readonly
-                        placeholder="请输入您的姓名">
+                        value="{{$data['gender']}}">
                   	</div>
                 </div>
 
@@ -133,43 +132,39 @@
                   <label for="username" class="col-sm-3 control-label">用户名</label>
                   <div class="col-sm-6">
                      <input type="text" class="form-control" id="username" readonly
-                        placeholder="请输入用户名">
+                        value="{{$data['username']}}">
                   </div>
                </div>
                <div class="form-group">
                   <label for="email" class="col-sm-3 control-label">email</label>
                   <div class="col-sm-6">
                      <input type="email" class="form-control" id="email" readonly
-                        placeholder="请输入邮件地址">
+                        value="{{$data['email']}}">
                   </div>
                </div>
                <div class="form-group">
                   <label for="phone" class="col-sm-3 control-label">电话</label>
                   <div class="col-sm-6">
                      <input type="text" class="form-control" id="phone" readonly
-                        placeholder="请输入您的电话">
+                        value="{{$data['phone']}}">
                   </div>
                </div>
                <div class="form-group">
                   <label for="aboutme" class="col-sm-3 control-label">关于我</label>
                   <div class="col-sm-6" readonly>
-                     <textarea name="aboutme" class="form-control" rows="3">学历、等个人信息</textarea>
+                     <textarea name="aboutme" class="form-control" rows="3">{{$data['about']}}</textarea>
                   </div>
               </div> 
             </form>   
 
-            <div class="alert alert-success">下面是对于 服务消费者**的评价</div>
+            <div class="alert alert-success">下面是对于 服务消费者{{$data['name']}}的评价</div>
             <table class="table table-bordered  table-hover">
 			   <tbody>
+          @foreach($data['comments'] as $item)
 			      <tr>
-			         <td>Tanmay</td>  
+			         <td>{{$item->description}}</td>  
 			      </tr>
-			      <tr>
-			         <td>Sachin</td> 
-			      </tr>
-			      <tr>
-			         <td>Uma</td>
-			      </tr>
+			     @endforeach
 			   </tbody>
 			</table>
 

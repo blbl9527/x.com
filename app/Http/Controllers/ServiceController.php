@@ -150,14 +150,16 @@ class ServiceController extends Controller
             $data = $this->construct_arr_for_update($id);
             return response()->view('consumer.getDetail',['data'=>$data])->header('refresh','3;'.url('/consumer'));
         }
-        if(isset($inputs['b']) && $ts_->save()){
+        if(isset($inputs['b']) && $ts_->save()){//服务提供者去服务
             $data = $this->construct_arr_for_update($id);
             return response()->view('producer.toWork',['data'=>$data])->header('refresh','3;'.url('/producer'));
         }
-        if(isset($inputs['cid']) && $ts_->save()){
-            return response()->view('consumer.getDetail',['data'=>$data])->header('refresh','3;'.url('/login/start'));
+        if(isset($inputs['c']) && $ts_->save()){//消费者取消选择
+            $data = $this->construct_arr_for_update($id);
+            return response()->view('consumer.ccancel',['data'=>$data])->header('refresh','3;'.url('/consumer'));
         }
-        if(isset($inputs['cid']) && $ts_->save()){
+        if(isset($inputs['d']) && $ts_->save()){//消费者结束雇佣，单方面完成交易
+             $data = $this->construct_arr_for_update($id);
             return response()->view('consumer.getDetail',['data'=>$data])->header('refresh','3;'.url('/login/start'));
         }
 
@@ -190,6 +192,7 @@ class ServiceController extends Controller
                 'area' => Area::where('id',$ts->areaid)->first()->name,
                 'about' => $ts->about,
                 'aboutproducerurl' => url('other/showp/'.$ts->pid),
+                'abtpurl' =>url('other/showp/'.$ts->pid),
                 'phone' => $ts->phone,
                 'email' => $ts->email,
             ];
@@ -277,17 +280,23 @@ class ServiceController extends Controller
             $ts = Service::where('id',$id)->first();
             $tp = Producer::where('id',$ts->pid)->first();
             $tc = Consumer::where('id',$ts->cid)->first();
+            if(is_null($tc)){
+                $cname="x"; //debug fix
+            }else{
+                $cname=$tc->name;
+            }
         //--------------------------------------------------------------------
                 $data=[
                 'id' => $ts->id,
                 'name' => $tp->name,
-                'cname' => $tc->name,
+                'cname' => $cname,
                 'work' => Work::where('id',$ts->workid)->first()->name,  
                 'time' => Time::where('id',$ts->timeid)->first()->name,   
                 'salary' => $ts->salary,
                 'area' => Area::where('id',$ts->areaid)->first()->name,
                 'about' => $ts->about,
                 'aboutproducerurl' => url('other/showp/'.$ts->pid),
+                'abtpurl' =>url('other/showp/'.$ts->pid),
                 'abtcurl' =>url('other/showc/'.$ts->cid),
                 'phone' => $ts->phone,
                 'email' => $ts->email,
@@ -297,7 +306,49 @@ class ServiceController extends Controller
                    
     }
 
-    
+    //this method for consumer to cancel a deal
+    //other/cancel/{sid}
+    public function cCancel($id){
+       $sinfo = Service::where('id',$id)->first();
+       $pinfo = Producer::where('id',$sinfo->pid)->first();
+       $winfo = Work::where('id',$sinfo->workid)->first();
+       $tinfo = Time::where('id',$sinfo->timeid)->first();
+       $data=[
+            'id' => $id,
+            'name' =>$pinfo->name,
+            'abtpurl'=>url('/other/showp/'.$pinfo->id),
+            'area' =>Area::where('id',$sinfo->areaid)->first()->name,
+            'work' =>$winfo->name,
+            'time' =>$tinfo->name,
+            'salary'=>$sinfo->salary,
+            'phone'=>$sinfo->phone,
+            'email'=>$sinfo->email,
+            'about'=>$sinfo->about,
+       ];
+       return view('consumer.ccancel',['data'=>$data]);
+    }
+
+    //this method for consumer to terminate a deal
+    //
+    public function cTerminate($id){
+        $sinfo = Service::where('id',$id)->first();
+        $pinfo = Producer::where('id',$sinfo->pid)->first();
+        $winfo = Work::where('id',$sinfo->workid)->first();
+        $tinfo = Time::where('id',$sinfo->timeid)->first();
+        $data=[
+            'id' => $id,
+            'name' =>$pinfo->name,
+            'abtpurl'=>url('/other/showp/'.$pinfo->id),
+            'area' =>Area::where('id',$sinfo->areaid)->first()->name,
+            'work' =>$winfo->name,
+            'time' =>$tinfo->name,
+            'salary'=>$sinfo->salary,
+            'phone'=>$sinfo->phone,
+            'email'=>$sinfo->email,
+            'about'=>$sinfo->about,
+       ];
+       return view('consumer.cterminate',['data'=>$data]);
+    }
 
 
 }

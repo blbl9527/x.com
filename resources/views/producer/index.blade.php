@@ -141,35 +141,29 @@
             <hr>
             <h2 id="section-2">服务中的</h2>
 				<table class="table table-hover">
-								   <thead>
-								      <tr>
-								         <th>雇主</th>
-								         <th>工作类型</th>
-								         <th>时间安排</th>
-								         <th>日薪</th>
-								         <th>地区</th>
-								         <th>结束工作</th>
-								      </tr>
-								   </thead>
-								   <tbody>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								         <td>结束工作</td>
-								      </tr>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								         <td>结束工作</td>
-								      </tr>
-								   </tbody>
-								</table>
+				   <thead>
+				      <tr>
+				         <th>雇主</th>
+				         <th>工作类型</th>
+				         <th>时间安排</th>
+				         <th>日薪</th>
+				         <th>地区</th>
+				         <th>结束工作</th>
+				      </tr>
+				   </thead>
+				   <tbody>
+				   	@foreach($services_s3 as $item)
+				      <tr>
+				         <td><a href="{{$item['abtcurl']}}" target="blank">{{$item['cname']}}</a></td>
+				         <td>{{$item['work']}}</td>
+				         <td>{{$item['time']}}</td>
+				         <td>{{$item['salary']}}</td>
+				         <td>{{$item['area']}}</td>
+				         <td><a href="{{$item['pterminateurl']}}" >结束工作</a></td>
+				      </tr>
+				      @endforeach
+				   </tbody>
+				</table>
             
             <hr>
             <h2 id="section-3">刚发布的</h2>
@@ -192,7 +186,7 @@
 								         <td>{{$item['time']}}</td>
 								         <td>{{$item['salary']}}</td>
 								         <td>{{$item['area']}}</td>
-								         <td>删除</td>
+								         <td><a href="{{$item['deleteurl']}}" >删除</a></td>
 								      </tr>
 								   @endforeach
 								   </tbody>
@@ -200,65 +194,54 @@
             <hr>
             <h2 id="section-4">未评价的</h2>
 				<table class="table table-hover">
-								   <thead>
-								      <tr>
-								         <th>雇主</th>
-								         <th>工作类型</th>
-								         <th>时间安排</th>
-								         <th>日薪</th>
-								         <th>地区</th>
-								         <th>我要评价</th>
-								      </tr>
-								   </thead>
-								   <tbody>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								         <td>评价</td>
-								      </tr>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								         <td>评价</td>
-								      </tr>
-								   </tbody>
-								</table>
+				   <thead>
+				      <tr>
+				         <th>雇主</th>
+				         <th>工作类型</th>
+				         <th>时间安排</th>
+				         <th>日薪</th>
+				         <th>地区</th>
+				         <th>我要评价</th>
+				      </tr>
+				   </thead>
+				   <tbody>
+				   	@foreach($services_s4_c0 as $item)
+				      <tr>
+				         <td><a href="{{$item['abtcurl']}}" target="blank">{{$item['cname']}}</a></td>
+				         <td>{{$item['work']}}</td>
+				         <td>{{$item['time']}}</td>
+				         <td>{{$item['salary']}}</td>
+				         <td>{{$item['area']}}</td>
+				         <td><a href="{{$item['pcommenturl']}}">评价</a></td>
+				      </tr>
+				    @endforeach
+				   </tbody>
+				</table>
             
             <hr>
             <h2 id="section-5">已完成的</h2>
             	<table class="table table-hover">
-								   <thead>
-								      <tr>
-								         <th>雇主</th>
-								         <th>工作类型</th>
-								         <th>时间安排</th>
-								         <th>日薪</th>
-								         <th>地区</th>
-								      </tr>
-								   </thead>
-								   <tbody>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								      </tr>
-								      <tr>
-								         <td>罗浩楠</td>
-								         <td>带小孩</td>
-								         <td>工作日</td>
-								         <td>200</td>
-								         <td>信阳</td>
-								      </tr>
-								   </tbody>
-								</table>
+			   <thead>
+			      <tr>
+			         <th>雇主</th>
+			         <th>工作类型</th>
+			         <th>时间安排</th>
+			         <th>日薪</th>
+			         <th>地区</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   	@foreach($services_s4_c1 as $item)
+			      <tr>
+			         <td><a href="{{$item['abtcurl']}}" target="blank">{{$item['cname']}}</a></td>
+			         <td>{{$item['work']}}</td>
+			         <td>{{$item['time']}}</td>
+			         <td>{{$item['salary']}}</td>
+			         <td>{{$item['area']}}</td>
+			      </tr>
+			    @endforeach  
+			   </tbody>
+			</table>
            
         </div>
 

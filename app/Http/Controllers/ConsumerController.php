@@ -50,7 +50,7 @@ class ConsumerController extends Controller
         //未评价的
         $services_s3_c0 = Service::where('cid',$t->id)->where(function($query){
             $query->where('status',4)->where(function($query){
-                $query->where('pcomment',0);
+                $query->where('ccomment',0);
             });
         })->get();
         $services_s3_c0 = $this->services_s3_c0_id_2_name($services_s3_c0);
@@ -58,7 +58,7 @@ class ConsumerController extends Controller
         //已完成的
         $services_s3_c1 = Service::where('cid',$t->id)->where(function($query){
             $query->where('status',4)->where(function($query){
-                $query->where('pcomment',1);
+                $query->where('ccomment',1);
             });
         })->get();
         $services_s3_c1 = $this->services_s3_c1_id_2_name($services_s3_c1);
@@ -172,7 +172,30 @@ class ConsumerController extends Controller
 
     //this method provide information for producer about the consumer.
     public function getShow($id){
-        return view('consumer.show');
+        $tp = Consumer::where('id',$id)->first();
+        if(is_null($tp)){
+            //如果通过非法途径访问不存在的信息则回到初始页面
+            return redirect()->action('LoginController@getStart');
+        }
+
+        if($tp->privateprotected === 1){
+            $email = '************|设置了隐私保护';
+            $phone = '************|设置了隐私保护';
+        }else{
+            $email = $tp->email;
+            $phone = $tp->phone;
+        }
+
+        $data=[
+            'name' => $tp->name,
+            'gender' => $this->gender_no_2_str($tp->gender),  
+            'username' => $tp->username,
+            'email' => $email,
+            'phone' => $phone,
+            'protected'=>$tp->privateprotected,
+            'about' => $tp->about,
+        ];
+        return view('consumer.show',['data'=>$data]);
     }
 
     //this method create a form to post a comment, of course it's for a producer
@@ -182,7 +205,24 @@ class ConsumerController extends Controller
     public function getCommentForm($id){
         //although this method is not at the best place.
         //but ...
-        return view('consumer.addcomment');
+        $sinfo = Service::where('id',$id)->first();
+        $pinfo = Producer::where('id',$sinfo->pid)->first();
+        $winfo = Work::where('id',$sinfo->workid)->first();
+        $tinfo = Time::where('id',$sinfo->timeid)->first();
+        $data=[
+            'id' => $id,
+            'name' =>$pinfo->name,
+            'pid'=>$pinfo->id, 
+            'abtpurl'=>url('/other/showp/'.$pinfo->id),
+            'area' =>Area::where('id',$sinfo->areaid)->first()->name,
+            'work' =>$winfo->name,
+            'time' =>$tinfo->name,
+            'salary'=>$sinfo->salary,
+            'phone'=>$sinfo->phone, 
+            'email'=>$sinfo->email,
+            'about'=>$sinfo->about,
+       ];
+        return view('consumer.addcomment',['data'=>$data]);
     }
 
     private function  services_s1_id2name($arr=[]){
@@ -270,6 +310,16 @@ class ConsumerController extends Controller
             ];
         }
         return $Ilikecoding;
+    }
+
+    private function gender_no_2_str($no){
+        if($no === 0){
+            return "女士";
+        }else if($no === 1){
+            return "男士";
+        }else{
+            return "未知";
+        }
     }
 
 }
